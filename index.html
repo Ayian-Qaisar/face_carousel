@@ -57,49 +57,40 @@
     </div>
 
     <script>
-      const facesContainer = document.getElementById("facesContainer");
-      const images = Array.from(facesContainer.children);
-      const speed = 5; // pixels per frame
-      let isPaused = false;
+      (function () {
+        const _0x4e6f52 = document.getElementById("facesContainer");
+        const _0x4f9b5c = Array.from(_0x4e6f52.children);
+        let _0x2dffaf = false;
+        let _0x3ac7bb = 5;
 
-      // Clone images to create seamless loop
-      images.forEach((img) => {
-        const clone = img.cloneNode(true);
-        facesContainer.appendChild(clone);
-      });
+        _0x4f9b5c.forEach(function (_0x4e14de) {
+          _0x4e6f52.appendChild(_0x4e14de.cloneNode(true));
+        });
 
-      // Calculate the width of one complete set of images
-      const imageWidth = 500; // width of each image
-      const imageMargin = 40; // total margin (20px on each side)
-      const singleSetWidth = images.length * (imageWidth + imageMargin);
-      let currentTranslate = -singleSetWidth;
+        const _0x44d7f8 = 500;
+        const _0x1d65c3 = 40;
+        const _0x260ded = _0x4f9b5c.length * (_0x44d7f8 + _0x1d65c3);
+        let _0x38a61d = -_0x260ded;
 
-      function animate() {
-        if (!isPaused) {
-          currentTranslate += speed;
-
-          // Reset position when first set is completely out of view
-          if (currentTranslate >= 0) {
-            currentTranslate = -singleSetWidth;
+        function _0x38ee1c() {
+          if (!_0x2dffaf) {
+            _0x38a61d += _0x3ac7bb;
+            if (_0x38a61d >= 0) {
+              _0x38a61d = -_0x260ded;
+            }
+            _0x4e6f52.style.transform = "translateX(" + _0x38a61d + "px)";
           }
-
-          facesContainer.style.transform = `translateX(${currentTranslate}px)`;
+          requestAnimationFrame(_0x38ee1c);
         }
 
-        requestAnimationFrame(animate);
-      }
-
-      // Pause on hover
-      facesContainer.addEventListener("mouseenter", () => {
-        isPaused = true;
-      });
-
-      facesContainer.addEventListener("mouseleave", () => {
-        isPaused = false;
-      });
-
-      // Start animation
-      animate();
+        _0x4e6f52.addEventListener("mouseenter", function () {
+          _0x2dffaf = true;
+        });
+        _0x4e6f52.addEventListener("mouseleave", function () {
+          _0x2dffaf = false;
+        });
+        _0x38ee1c();
+      })();
     </script>
   </body>
 </html>
