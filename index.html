@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Faces Carousel</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        font-family: Arial, sans-serif;
+        background: white;
+      }
+
+      .carousel-container {
+        width: 100%;
+        overflow: hidden;
+        border-radius: 15px;
+        padding: 20px 0;
+      }
+
+      .faces {
+        display: flex;
+        will-change: transform;
+      }
+
+      .faces img {
+        width: 600px;
+        height: 600px;
+        margin: 0 20px;
+        /* border-radius: 50%; */
+        /* box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); */
+        transition: transform 0.3s ease;
+        flex-shrink: 0;
+      }
+
+      /* .faces img:hover {
+        transform: scale(1.1);
+      } */
+    </style>
+  </head>
+  <body>
+    <div class="carousel-container">
+      <section class="faces" id="facesContainer">
+        <img src="face1.svg" alt="Face 1" />
+        <img src="face2.svg" alt="Face 2" />
+        <img src="face3.svg" alt="Face 3" />
+        <img src="face4.svg" alt="Face 4" />
+        <img src="face5.svg" alt="Face 5" />
+        <img src="face6.svg" alt="Face 6" />
+        <img src="face7.svg" alt="Face 7" />
+        <img src="face8.svg" alt="Face 8" />
+        <img src="face9.svg" alt="Face 9" />
+      </section>
+    </div>
+
+    <script>
+      const facesContainer = document.getElementById("facesContainer");
+      const images = Array.from(facesContainer.children);
+      let currentTranslate = 0;
+      const speed = 1; // pixels per frame
+      let isPaused = false;
+
+      // Clone images to create seamless loop
+      images.forEach((img) => {
+        const clone = img.cloneNode(true);
+        facesContainer.appendChild(clone);
+      });
+
+      // Calculate the width of one complete set of images
+      const imageWidth = 120; // width of each image
+      const imageMargin = 40; // total margin (20px on each side)
+      const singleSetWidth = images.length * (imageWidth + imageMargin);
+
+      function animate() {
+        if (!isPaused) {
+          currentTranslate -= speed;
+
+          // Reset position when first set is completely out of view
+          if (Math.abs(currentTranslate) >= singleSetWidth) {
+            currentTranslate = 0;
+          }
+
+          facesContainer.style.transform = `translateX(${currentTranslate}px)`;
+        }
+
+        requestAnimationFrame(animate);
+      }
+
+      // Pause on hover
+      facesContainer.addEventListener("mouseenter", () => {
+        isPaused = true;
+      });
+
+      facesContainer.addEventListener("mouseleave", () => {
+        isPaused = false;
+      });
+
+      // Start animation
+      animate();
+    </script>
+  </body>
+</html>
