@@ -33,8 +33,8 @@
       }
 
       .faces img {
-        width: 600px;
-        height: 600px;
+        width: 500px;
+        height: 500px;
         margin: 0 20px;
         /* border-radius: 50%; */
         /* box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); */
@@ -66,7 +66,7 @@
       const facesContainer = document.getElementById("facesContainer");
       const images = Array.from(facesContainer.children);
       let currentTranslate = 0;
-      const speed = 1; // pixels per frame
+      const speed = 5; // pixels per frame
       let isPaused = false;
 
       // Clone images to create seamless loop
@@ -76,20 +76,20 @@
       });
 
       // Calculate the width of one complete set of images
-      const imageWidth = 120; // width of each image
-      const imageMargin = 40; // total margin (20px on each side)
+      const imageWidth = 500; // width of each image
+      const imageMargin = 0; // total margin (20px on each side)
       const singleSetWidth = images.length * (imageWidth + imageMargin);
 
       function animate() {
         if (!isPaused) {
-          currentTranslate -= speed;
+          currentTranslate += speed;
 
           // Reset position when first set is completely out of view
-          if (Math.abs(currentTranslate) >= singleSetWidth) {
+          if (currentTranslate >= singleSetWidth) {
             currentTranslate = 0;
           }
 
-          facesContainer.style.transform = `translateX(${currentTranslate}px)`;
+          facesContainer.style.transform = `translateX(-${currentTranslate}px)`;
         }
 
         requestAnimationFrame(animate);
